@@ -1,0 +1,9 @@
+
+venv/
+/debug.log/
+/*.pyc/
+*.log/
+!debug.log/
+.idea/
+__pycache__/
+/database.ini/
