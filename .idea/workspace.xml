@@ -4,8 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="023269e1-019f-4c0e-89fd-145191613ad9" name="Changes" comment="установка зависимостей">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    <list default="true" id="023269e1-019f-4c0e-89fd-145191613ad9" name="Changes" comment="изменен gitignore">
+      <change afterPath="$PROJECT_DIR$/src/exceptions.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/utils.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/user_settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/dbmanager.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/dbmanager.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hh_api.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hh_api.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,7 +28,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="main" />
+        <entry key="$PROJECT_DIR$" value="develop" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -55,7 +61,7 @@
     "Python.main.executor": "Run",
     "Python.scrath.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "develop",
+    "git-widget-placeholder": "#1 on feature/data__base",
     "last_opened_file_path": "C:/Users/koval/PycharmProjects/BaseData/data"
   }
 }]]></component>
@@ -120,7 +126,31 @@
       <option name="project" value="LOCAL" />
       <updated>1744023466422</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="ветка develop">
+      <option name="closed" value="true" />
+      <created>1744023759246</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1744023759246</updated>
+    </task>
+    <task id="LOCAL-00004" summary="реализован основной код в новой ветке">
+      <option name="closed" value="true" />
+      <created>1744024477641</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1744024477641</updated>
+    </task>
+    <task id="LOCAL-00005" summary="изменен gitignore">
+      <option name="closed" value="true" />
+      <created>1744024813436</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1744024813436</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="UnknownFeatures">
@@ -128,6 +158,9 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="установка зависимостей" />
-    <option name="LAST_COMMIT_MESSAGE" value="установка зависимостей" />
+    <MESSAGE value="ветка develop" />
+    <MESSAGE value="реализован основной код в новой ветке" />
+    <MESSAGE value="изменен gitignore" />
+    <option name="LAST_COMMIT_MESSAGE" value="изменен gitignore" />
   </component>
 </project>
