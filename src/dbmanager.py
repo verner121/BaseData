@@ -1,69 +1,92 @@
-from typing import Any, Dict
-
 import psycopg2
+from prettytable import PrettyTable
 
 
 class DBManager:
-    def __init__(self, database_name, params):
-        self.dbname = database_name
-        self.conn = psycopg2.connect(dbname=database_name, **params)
-        self.cur = self.conn.cursor()
+    """
+    Класс для работы с данными в БД
+    """
 
-    def get_companies_and_vacancies_count(self) -> Dict[Any, Any]:
+    def __init__(self, database_name: str, params: dict):
+        self.__database_name = database_name
+        self.__params = params
+
+    def __connect_to_db(self, query: str) -> None:
+        with psycopg2.connect(dbname=self.__database_name, **self.__params) as conn:
+            with conn.cursor() as cur:
+                cur.execute(query)
+                table = PrettyTable()
+                table.field_names = [desc[0] for desc in cur.description]
+
+                for row in cur:
+                    table.add_row(list(row))
+                print(table)
+
+        conn.close()
+
+    def get_vacancies_with_keyword(self, search_query: str) -> None:
         """
-        Получает список всех компаний и количество вакансий у каждой компании
+        Метод получения списка всех вакансий, в названии которых содержаться переданные в метод слова
         """
-        self.cur.execute(
+        self.__connect_to_db(
+            f"""
+            SELECT employer_name, vacancy_name, salary, vacancy_url
+            FROM vacancies
+            JOIN employers using (employer_id)
+            WHERE vacancy_name like '%{search_query}%'
+            LIMIT 10
             """
-        SELECT company_name, COUNT(*) FROM vacancies
-        GROUP BY company_name
-        """
         )
-        rows = self.cur.fetchall()
-        return rows
 
-    def get_all_vacancies(self) -> list:
+    def get_companies_and_vacancies_count(self) -> None:
         """
-        Получает список всех вакансий с указанием названия компании, названия вакансии и зарплаты и ссылки на вакансию
+        Метод получения списка всех компаний и количества вакансий у каждой компании
         """
-        self.cur.execute(
+        self.__connect_to_db(
             """
-        SELECT (company_name, job_title, salary_from, currency, link_to_vacancy) FROM vacancies
-        """
-        )
-        rows = self.cur.fetchall()
-        return rows
-
-    def get_avg_salary(self):
-        """
-        Получает среднюю зарплату по вакансиям
-        """
-        self.cur.execute(
+            SELECT DISTINCT employer_name, open_vacancies
+            FROM employers
+            JOIN vacancies using (employer_id)
+            LIMIT 10
             """
-        SELECT AVG(salary_from) FROM vacancies
-        """
         )
-        rows = self.cur.fetchall()
-        return rows
 
-    def get_vacancies_with_higher_salary(self) -> list:
+    def get_all_vacancies(self) -> None:
         """
-        Получает список всех вакансий, у которых зарплата выше средней по всем вакансиям.
+        Метод получения списка всех вакансий с указанием названия компании,
+        названия вакансии и зарплаты и ссылки на вакансию.
         """
-        self.cur.execute(
+        self.__connect_to_db(
             """
-       SELECT job_title,  salary_from FROM vacancies
-       WHERE salary_from > (SELECT AVG(salary_from) FROM vacancies)
-        """
+            SELECT employer_name, vacancy_name, salary, vacancy_url
+            FROM vacancies
+            JOIN employers using (employer_id)
+            LIMIT 10
+            """
         )
-        rows = self.cur.fetchall()
-        return rows
 
-    def get_vacancies_with_keyword(self, keyword) -> list:
+    def get_avg_salary(self) -> None:
         """
-        Получает список всех вакансий, в названии которых содержатся переданные в метод слова, например python
+        Метод получения средней зарплаты по вакансиям
         """
-        q = """SELECT * FROM vacancies
-                        WHERE LOWER(job_title) LIKE %s"""
-        self.cur.execute(q, ("%" + keyword.lower() + "%",))
-        return self.cur.fetchall()
+        self.__connect_to_db(
+            """
+            SELECT avg(salary) as avg_salary
+            FROM vacancies
+            LIMIT 10
+            """
+        )
+
+    def get_vacancies_with_higher_salary(self) -> None:
+        """
+        Метод получения списка всех вакансий, у которых зарплата выше средней по всем вакансиям
+        """
+        self.__connect_to_db(
+            """
+            SELECT employer_name, vacancy_name, salary, vacancy_url
+            FROM vacancies
+            JOIN employers using (employer_id)
+            WHERE salary > (SELECT AVG(salary) AS avg_salary FROM vacancies)
+            LIMIT 10
+            """
+        )
